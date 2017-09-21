@@ -1,3 +1,4 @@
+declare var $;
 declare var goog;
 
 goog.provide('test.HelloWorld.ClassTest');
@@ -13,6 +14,7 @@ module test.HelloWorld {
 		}
 
 		public Get(): void {
+			$('sdf');
 			console.info('test.Get', this.param1, this.param2);
 		}
 

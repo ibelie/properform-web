@@ -1,7 +1,7 @@
 @ECHO OFF
-SET SCRIPTPATH=%~dp0\script
+SET BINPATH=%~dp0\bin
 
-CALL %SCRIPTPATH%\build.bat
-CALL %SCRIPTPATH%\run.bat
+CALL %BINPATH%\build.bat
+CALL %BINPATH%\run.bat
 
 PAUSE

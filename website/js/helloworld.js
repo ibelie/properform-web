@@ -9,6 +9,7 @@ var test;
                 this.param2 = param2;
             }
             ClassTest.prototype.Get = function () {
+                $('sdf');
                 console.info('test.Get', this.param1, this.param2);
             };
             ClassTest.prototype.Post = function () {
