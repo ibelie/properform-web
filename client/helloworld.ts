@@ -14,12 +14,25 @@ module test.HelloWorld {
 		}
 
 		public Get(): void {
-			$('sdf');
-			console.info('test.Get', this.param1, this.param2);
+			$.ajax({
+				type: "GET",
+				url: "/test/helloworld",
+				data: {param1: this.param1, param2: this.param2},
+				success : function(data) {
+					$("#GETDiv").html('Get helloworld: ' + data.helloworld);
+				},
+			});
 		}
 
 		public Post(): void {
-			console.info('test.Post', this.param1, this.param2);
+			var result = $.ajax({
+				type: "POST",
+				url: "/test/helloworld",
+				data: {param1: this.param1, param2: this.param2},
+				success : function(data) {
+					$("#POSTDiv").html('Get helloworld: ' + data.helloworld);
+				},
+			});
 		}
 	}
 }

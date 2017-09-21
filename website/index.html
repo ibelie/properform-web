@@ -3,16 +3,26 @@
 <head>
 	<meta charset="utf-8">
 	<title>Properform</title>
-	<script src="js/jquery-3.2.1.slim.min.js"></script>
+	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="goog/base.js"></script>
 	<script src="goog/deps.js"></script>
 	<script>goog.require('test.HelloWorld.ClassTest');</script>
 </head>
 <body>
 	Test OK!
+	<div id="GETDiv"><h2>Test GET change this text</h2></div>
+	<div id="POSTDiv"><h2>Test POST change this text</h2></div>
+	<button id="testGET" type="button">Test GET</button>
+	<button id="testPOST" type="button">Test POST</button>
 	<script>
 		var test = new test.HelloWorld.ClassTest(123, 432);
-		test.Get();
-		test.Post();
+		$(document).ready(function(){
+			$("#testGET").click(function(){
+				test.Get();
+			});
+			$("#testPOST").click(function(){
+				test.Post();
+			});
+		});
 	</script>
 </body>

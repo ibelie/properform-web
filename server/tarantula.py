@@ -10,6 +10,7 @@ __all__ = ["TarantulaHTTPRequestHandler", "serve"]
 import os
 import imp
 import sys
+import json
 import shutil
 import urlparse
 import mimetypes
@@ -91,11 +92,11 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 			if len(names) < 2:
 				return False
 			moduleName, routeName = names
-			path = os.path.join(self.app_route, path)
 
 			# load module
 			if moduleName not in self.modules:
 				try:
+					path = os.path.join(self.app_route, moduleName + '.py')
 					f = open(path, 'rb')
 				except IOError:
 					self.send_error(404, "Route module not found")
@@ -118,7 +119,8 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 			route = module[routeName]
 
 			try:
-				result = route(**params)
+				params = {k: v if len(v) > 1 else v[0] for k, v in params.iteritems()}
+				result = json.dumps(route(**params))
 			except Exception, e:
 				self.print_trace(e)
 				return True
