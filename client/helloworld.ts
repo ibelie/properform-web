@@ -19,7 +19,7 @@ module test.HelloWorld {
 				url: "/test/helloworld",
 				data: {param1: this.param1, param2: this.param2},
 				success : function(data) {
-					$("#GETDiv").html('Get helloworld: ' + data.helloworld);
+					$("#GETDiv").html('GET helloworld: ' + data.helloworld);
 				},
 			});
 		}
@@ -30,7 +30,7 @@ module test.HelloWorld {
 				url: "/test/helloworld",
 				data: {param1: this.param1, param2: this.param2},
 				success : function(data) {
-					$("#POSTDiv").html('Get helloworld: ' + data.helloworld);
+					$("#POSTDiv").html('POST helloworld: ' + data.helloworld);
 				},
 			});
 		}
