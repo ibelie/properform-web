@@ -41,7 +41,7 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 				return
 			elif self.handle_route(path, urlparse.parse_qs(query)):
 				return
-			print '[Tarantula] do_GET Error'
+			print '[Tarantula] GET Error:', self.path
 
 		def do_POST(self):
 			"""Serve a POST request."""
@@ -131,7 +131,7 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 
 		def send_file(self, path):
 			"""Common code for GET and POST commands to send the response code, MIME headers and file contents."""
-			path = os.path.join(self.file_path, path)
+			path = os.path.join(self.file_path, path.lstrip('/'))
 			if not os.path.isfile(path):
 				if not os.path.isdir(path):
 					return False
