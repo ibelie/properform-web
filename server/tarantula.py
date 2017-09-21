@@ -134,6 +134,10 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 			path = os.path.join(self.file_path, path.lstrip('/'))
 			if not os.path.isfile(path):
 				if not os.path.isdir(path):
+					_, ext = posixpath.splitext(path)
+					if ext in self.extensions_map:
+						self.send_error(404, "File not found")
+						return True
 					return False
 				index = os.path.join(path, 'index.html')
 				if not os.path.isfile(index):

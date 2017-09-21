@@ -3,7 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>Properform</title>
+	<script src="goog/base.js"></script>
+	<script src="goog/deps.js"></script>
+	<script>goog.require('test.HelloWorld.ClassTest');</script>
 </head>
 <body>
 	Test OK!
+	<script>
+		var test = new test.HelloWorld.ClassTest(123, 432);
+		test.Get();
+		test.Post();
+	</script>
 </body>
