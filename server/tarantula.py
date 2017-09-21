@@ -72,7 +72,9 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 				self.print_trace(e)
 				return
 
-			print 'do_POST data: %s' % repr(data)
+			if self.handle_route(path, urlparse.parse_qs(data)):
+				return
+			print '[Tarantula] POST Error:', self.path, data
 
 		def print_trace(self, e):
 			# internal error, report as HTTP server error
@@ -123,13 +125,13 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 				result = json.dumps(route(**params))
 			except Exception, e:
 				self.print_trace(e)
-				return True
 			else:
 				self.send_response(200)
 				self.send_header("Content-type", "text/json")
 				self.send_header("Content-length", str(len(result)))
 				self.end_headers()
 				self.wfile.write(result)
+			return True
 
 		def send_file(self, path):
 			"""Common code for GET and POST commands to send the response code, MIME headers and file contents."""
