@@ -1,3 +1,7 @@
 @ECHO OFF
-SET PYTHONPATH=%~dp0\python
-SET PATH=%PATH%;%GOPATH%\bin
+SET SCRIPTPATH=%~dp0\script
+
+CALL %SCRIPTPATH%\build.bat
+CALL %SCRIPTPATH%\run.bat
+
+PAUSE
