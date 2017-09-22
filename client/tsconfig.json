@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": [
+			"dom",
+			"es5",
+			"es6",
+			"scripthost",
+			"dom.iterable"
+		],
+		"target": "es5",
+		"strictNullChecks": true,
+		"preserveConstEnums": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"include": [
+		"**/*"
+	],
+	"exclude": [
+		"lib",
+		"node_modules"
+	]
+}

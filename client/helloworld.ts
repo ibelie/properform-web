@@ -1,5 +1,7 @@
-declare var $;
-declare var goog;
+/// <reference path="../closure/closure.d.ts" />
+/// <reference path="lib/jquery/jquery.d.ts" />
+
+goog.require('jquery');
 
 goog.provide('test.HelloWorld.ClassTest');
 
