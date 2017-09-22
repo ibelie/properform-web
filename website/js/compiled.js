@@ -1,0 +1,3 @@
+var c;
+(function(b){(function(d){var e=function(){function a(a,b){this.b=a;this.c=b}a.prototype.g=function(){$.ajax({type:"GET",url:"/test/helloworld",data:{param1:this.b,param2:this.c},success:function(a){$("#GETDiv").html("GET helloworld: "+a.helloworld)}})};a.prototype.i=function(){$.ajax({type:"POST",url:"/test/helloworld",data:JSON.stringify({param1:this.b,param2:this.c}),success:function(a){$("#POSTDiv").html("POST helloworld: "+a.helloworld)}})};return a}();d.f=e;d.h=function(){var a=new b.a.f(123,432);
+$(document).ready(function(){$("#testGET").click(function(){a.g()});$("#testPOST").click(function(){a.i()})})}})(b.a||(b.a={}))})(c||(c={}));window.HelloWorld=c.a.h;

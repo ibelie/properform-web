@@ -3,9 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<title>Properform</title>
+	<script src="js/jquery.js"></script>
 	<script src="goog/base.js"></script>
 	<script src="goog/deps.js"></script>
-	<script>goog.require('test.HelloWorld.ClassTest');</script>
+	<script>goog.require('HelloWorld');</script>
+	<!-- <script src="js/compiled.js"></script> -->
 </head>
 <body>
 	Test OK!
@@ -14,14 +16,6 @@
 	<button id="testGET" type="button">Test GET</button>
 	<button id="testPOST" type="button">Test POST</button>
 	<script>
-		var test = new test.HelloWorld.ClassTest(123, 432);
-		$(document).ready(function(){
-			$("#testGET").click(function(){
-				test.Get();
-			});
-			$("#testPOST").click(function(){
-				test.Post();
-			});
-		});
+		HelloWorld();
 	</script>
 </body>

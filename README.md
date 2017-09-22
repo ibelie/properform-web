@@ -12,3 +12,6 @@ To build and run this website, you must:
   Suggested version is Node.js v6.x
 - Install typescript compiler as a Node.js package.
   The simplest way is to run `npm install -g typescript`.
+- JRE (Java Runtime Environment) is required for google closure-compiler
+  to build a release version. Install JRE from
+	https://www.java.com.

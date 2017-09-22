@@ -1,7 +1,6 @@
 /// <reference path="../closure/closure.d.ts" />
 /// <reference path="lib/jquery/jquery.d.ts" />
-goog.require('jquery');
-goog.provide('test.HelloWorld.ClassTest');
+goog.provide('HelloWorld');
 var test;
 (function (test) {
     var HelloWorld;
@@ -15,9 +14,9 @@ var test;
                 $.ajax({
                     type: "GET",
                     url: "/test/helloworld",
-                    data: { param1: this.param1, param2: this.param2 },
+                    data: { 'param1': this.param1, 'param2': this.param2 },
                     success: function (data) {
-                        $("#GETDiv").html('GET helloworld: ' + data.helloworld);
+                        $("#GETDiv").html('GET helloworld: ' + data['helloworld']);
                     },
                 });
             };
@@ -25,14 +24,27 @@ var test;
                 var result = $.ajax({
                     type: "POST",
                     url: "/test/helloworld",
-                    data: { param1: this.param1, param2: this.param2 },
+                    data: JSON.stringify({ 'param1': this.param1, 'param2': this.param2 }),
                     success: function (data) {
-                        $("#POSTDiv").html('POST helloworld: ' + data.helloworld);
+                        $("#POSTDiv").html('POST helloworld: ' + data['helloworld']);
                     },
                 });
             };
             return ClassTest;
         }());
         HelloWorld.ClassTest = ClassTest;
+        function Init() {
+            var t = new test.HelloWorld.ClassTest(123, 432);
+            $(document).ready(function () {
+                $("#testGET").click(function () {
+                    t.Get();
+                });
+                $("#testPOST").click(function () {
+                    t.Post();
+                });
+            });
+        }
+        HelloWorld.Init = Init;
     })(HelloWorld = test.HelloWorld || (test.HelloWorld = {}));
 })(test || (test = {}));
+window['HelloWorld'] = test.HelloWorld.Init;
