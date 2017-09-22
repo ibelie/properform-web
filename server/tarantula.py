@@ -15,6 +15,7 @@ import shutil
 import urlparse
 import mimetypes
 import posixpath
+import traceback
 import BaseHTTPServer
 try:
 	from cStringIO import StringIO
@@ -27,11 +28,12 @@ def route(func):
 	return func
 
 
-def TarantulaHTTPRequestHandler(app_route, file_path):
+def TarantulaHTTPRequestHandler(app_route, file_path, _traceback):
 	class _TarantulaHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 		modules = {}
 		app_route = app_route
 		file_path = file_path
+		_traceback = _traceback
 		protocol_version = "HTTP/1.0"
 		server_version = "TarantulaHTTP/" + __version__
 
@@ -40,7 +42,8 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 			_, _, path, query, _ = urlparse.urlsplit(self.path)
 			if self.send_file(path):
 				return
-			elif self.handle_route(path, urlparse.parse_qs(query)):
+			elif self.handle_route(path, {k: v if len(v) > 1 else v[0]
+				for k, v in urlparse.parse_qs(query).iteritems()}):
 				return
 			print '[Tarantula] GET Error:', self.path
 
@@ -72,7 +75,12 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 				self.print_trace(e)
 				return
 
-			if self.handle_route(path, urlparse.parse_qs(data)):
+			try:
+				params = json.loads(data)
+			except ValueError:
+				params = {k: v if len(v) > 1 else v[0]
+					for k, v in urlparse.parse_qs(data).iteritems()}
+			if self.handle_route(path, params):
 				return
 			print '[Tarantula] POST Error:', self.path, data
 
@@ -81,7 +89,7 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 			self.send_response(500)
 
 			# Send information about the exception if requested
-			if hasattr(self.server, '_send_traceback_header') and self.server._send_traceback_header:
+			if self._traceback:
 				self.send_header("X-exception", str(e))
 				self.send_header("X-traceback", traceback.format_exc())
 
@@ -121,7 +129,6 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 			route = module[routeName]
 
 			try:
-				params = {k: v if len(v) > 1 else v[0] for k, v in params.iteritems()}
 				result = json.dumps(route(**params))
 			except Exception, e:
 				self.print_trace(e)
@@ -182,9 +189,9 @@ def TarantulaHTTPRequestHandler(app_route, file_path):
 	return _TarantulaHTTPRequestHandler
 
 
-def serve(port, app_route, file_path):
+def serve(port, app_route, file_path, _traceback):
 	httpd = BaseHTTPServer.HTTPServer(('', port),
-		TarantulaHTTPRequestHandler(app_route, file_path))
+		TarantulaHTTPRequestHandler(app_route, file_path, _traceback))
 	sa = httpd.socket.getsockname()
 	print "[Tarantula] Serving HTTP on", sa[0], "port", sa[1], "..."
 	httpd.serve_forever()
@@ -203,4 +210,8 @@ if __name__ == '__main__':
 		port = int(sys.argv[3])
 	else:
 		port = 80
-	serve(port, app_route, file_path)
+	if sys.argv[4:]:
+		_traceback = True if str(sys.argv[4]) == 'traceback' else False
+	else:
+		_traceback = False
+	serve(port, app_route, file_path, _traceback)

@@ -30,7 +30,7 @@ module test.HelloWorld {
 			var result = $.ajax({
 				type: "POST",
 				url: "/test/helloworld",
-				data: {param1: this.param1, param2: this.param2},
+				data: JSON.stringify({param1: this.param1, param2: this.param2}),
 				success : function(data) {
 					$("#POSTDiv").html('POST helloworld: ' + data.helloworld);
 				},
