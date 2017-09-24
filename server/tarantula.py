@@ -107,20 +107,15 @@ def TarantulaHTTPRequestHandler(app_route, file_path, _traceback):
 			if moduleName not in self.modules:
 				try:
 					path = os.path.join(self.app_route, moduleName + '.py')
-					f = open(path, 'rb')
+					mod = imp.load_source(moduleName, path)
+					self.modules[moduleName] = {k: getattr(mod, k) for k in dir(mod)
+						if getattr(getattr(mod, k), '____isRoute__', False)}
 				except IOError:
 					self.send_error(404, "Route module not found")
 					return True
-				try:
-					mod = imp.new_module(moduleName)
-					exec f.read() in mod.__dict__
-					self.modules[moduleName] = {k: getattr(mod, k) for k in dir(mod)
-						if getattr(getattr(mod, k), '____isRoute__', False)}
 				except Exception, e:
 					self.print_trace(e)
 					return True
-				finally:
-					f.close()
 
 			module = self.modules[moduleName]
 			if routeName not in module:
