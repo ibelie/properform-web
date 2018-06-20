@@ -1,6 +1,3 @@
-/// <reference path="../closure/closure.d.ts" />
-/// <reference path="lib/jquery/jquery.d.ts" />
-
 goog.provide('HelloWorld');
 
 module test.HelloWorld {
@@ -25,7 +22,7 @@ module test.HelloWorld {
 		}
 
 		public Post(): void {
-			var result = $.ajax({
+			$.ajax({
 				type: "POST",
 				url: "/test/helloworld",
 				data: JSON.stringify({'param1': this.param1, 'param2': this.param2}),

@@ -10,14 +10,13 @@
 		],
 		"target": "es5",
 		"alwaysStrict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"strictNullChecks": true,
 		"forceConsistentCasingInFileNames": true
 	},
 	"include": [
+		"../closure/closure.d.ts",
 		"**/*"
-	],
-	"exclude": [
-		"lib",
-		"node_modules"
 	]
 }

@@ -1,5 +1,4 @@
-/// <reference path="../closure/closure.d.ts" />
-/// <reference path="lib/jquery/jquery.d.ts" />
+"use strict";
 goog.provide('HelloWorld');
 var test;
 (function (test) {
@@ -21,7 +20,7 @@ var test;
                 });
             };
             ClassTest.prototype.Post = function () {
-                var result = $.ajax({
+                $.ajax({
                     type: "POST",
                     url: "/test/helloworld",
                     data: JSON.stringify({ 'param1': this.param1, 'param2': this.param2 }),

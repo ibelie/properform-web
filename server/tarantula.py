@@ -1,12 +1,12 @@
 #-*- coding: utf-8 -*-
-# Copyright 2017 ibelie, Chen Jie, Joungtao. All rights reserved.
+# Copyright 2017 - 2018 ibelie, Chen Jie, Joungtao. All rights reserved.
 # Use of this source code is governed by The MIT License
 # that can be found in the LICENSE file.
 
 from __future__ import print_function
 
 __author__ = 'Joungtao'
-__version__ = '0.0.1'
+__version__ = '0.1.1'
 __all__ = ['TarantulaHTTPRequestHandler', 'serve']
 
 import re
