@@ -9,6 +9,7 @@
 			"dom.iterable"
 		],
 		"target": "es5",
+		"alwaysStrict": true,
 		"strictNullChecks": true,
 		"forceConsistentCasingInFileNames": true
 	},
